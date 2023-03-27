@@ -1,0 +1,15 @@
+datasource db {
+  provider = "mysql"
+  url      = "mysql://root:root@localhost:3306/bitly"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Shortcat {
+  id    Int     @id @default(autoincrement())
+  shortcode_guid  String  @unique
+  redurect_url  String
+  active  Boolean @default(false)
+}
