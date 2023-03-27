@@ -1,13 +1,28 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { prismaHelper } from '@/utilities/prisma';
+import { Shortcat } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-type Data = {
-  url: string
+const { uuid } = require('uuidv4');
+
+const handler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
+  try {
+    const newShortcat = await prismaHelper<Shortcat>(async (prisma) => {
+      const shortcatData = {
+        shortcode_guid: uuid(),
+        redurect_url: 'www.com',
+        active: true
+      }
+      return await prisma.shortcat.create({ data: shortcatData })
+    });
+
+    res.status(200).json(newShortcat)
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal server error' });
+  }
 }
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  res.status(200).json({ url: 'codes/index' })
-}
+export default handler
