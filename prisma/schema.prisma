@@ -10,6 +10,6 @@ generator client {
 model Shortcat {
   id    Int     @id @default(autoincrement())
   shortcode_guid  String  @unique
-  redurect_url  String
+  redirect_url  String
   active  Boolean @default(false)
 }
