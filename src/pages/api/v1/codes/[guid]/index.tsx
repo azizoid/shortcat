@@ -37,9 +37,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       try {
         const { redirect_url, active } = req.body;
 
-        console.log({ active })
-
-        if (!redirect_url || !active) {
+        if (!redirect_url) {
           return res.status(400).json({ message: 'Invalid request body' });
         }
 
