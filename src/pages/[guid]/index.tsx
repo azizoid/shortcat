@@ -1,8 +1,8 @@
-import { Shortcat } from "@prisma/client";
 import { useRouter } from "next/router"
 import useSWR from 'swr'
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+import { Shortcat } from "@prisma/client";
+import { fetcher } from "@/utilities/fetcher";
 
 const GuidPage = () => {
   const router = useRouter()
