@@ -13,11 +13,7 @@ const GuidPage = () => {
   if (error) return <div>Error fetching data</div>;
   if (!data) return <div>Loading...</div>;
 
-  return <>
-    <div>GUID: {data.shortcode_guid}</div>
-    <div>Redirect Url: {data.redirect_url}</div>
-    <div>Active: {data.active}</div>
-  </>
+  return router.push(data.redirect_url)
 }
 
 export default GuidPage

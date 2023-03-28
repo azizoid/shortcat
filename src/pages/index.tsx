@@ -31,6 +31,11 @@ const Home = () => {
             </Table.HeadCell>
             <Table.HeadCell>
               <span className="sr-only">
+                View
+              </span>
+            </Table.HeadCell>
+            <Table.HeadCell>
+              <span className="sr-only">
                 Edit
               </span>
             </Table.HeadCell>
@@ -46,6 +51,11 @@ const Home = () => {
                 </Table.Cell>
                 <Table.Cell>
                   {shortcat.active ? 'Active' : 'Inactive'}
+                </Table.Cell>
+                <Table.Cell>
+                  <Link href={`/${shortcat.shortcode_guid}`} >
+                    View
+                  </Link>
                 </Table.Cell>
                 <Table.Cell>
                   <Link href={`/${shortcat.shortcode_guid}/edit`} >
