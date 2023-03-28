@@ -36,7 +36,7 @@ const Home = () => {
             </Table.HeadCell>
           </Table.Head>
           <Table.Body className="divide-y">
-            {data.map(shortcat =>
+            {data?.map(shortcat =>
               <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={shortcat.id}>
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                   {shortcat.shortcode_guid}
@@ -48,7 +48,7 @@ const Home = () => {
                   {shortcat.active ? 'Active' : 'Inactive'}
                 </Table.Cell>
                 <Table.Cell>
-                  <Link href={`/${shortcat.shortcode_guid}`} >
+                  <Link href={`/${shortcat.shortcode_guid}/edit`} >
                     Edit
                   </Link>
                 </Table.Cell>
