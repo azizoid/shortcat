@@ -1,7 +1,17 @@
 import { PrismaClient } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
+import Joi from 'joi';
 
 const prisma = new PrismaClient();
+
+const guidSchema = Joi.string().required();
+
+const shortcatSchema = Joi.object({
+  id: Joi.number(),
+  shortcode_guid: Joi.string(),
+  redirect_url: Joi.string().uri().required(),
+  active: Joi.boolean().required()
+});
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
@@ -10,7 +20,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       method,
     } = req;
 
-    if (typeof guid !== 'string') {
+    const { error: validationError } = guidSchema.validate(guid);
+
+    if (validationError) {
       return res.status(400).json({ message: 'GUID parameter is invalid' });
     }
 
@@ -19,7 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     switch (method) {
       case 'GET': {
         const shortcat = await prisma.shortcat.findUnique({
-          where: { shortcode_guid: guid },
+          where: { shortcode_guid: String(guid) },
         });
 
         if (!shortcat) {
@@ -30,17 +42,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
 
       case 'PATCH': {
-        const { redirect_url, active } = req.body;
+        const { error, value } = shortcatSchema.validate(req.body);
 
-        if (!redirect_url) {
-          return res.status(400).json({ message: 'Invalid request body' });
+        if (error) {
+          return res.status(400).json({ message: error.message });
         }
 
         const updatedShortcat = await prisma.shortcat.update({
-          where: { shortcode_guid: guid },
+          where: { shortcode_guid: String(guid) },
           data: {
-            redirect_url,
-            active: !!active,
+            redirect_url: value.redirect_url,
+            active: !!value.active,
           },
         });
 
@@ -49,7 +61,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       case 'DELETE': {
         const deletedShortcat = await prisma.shortcat.delete({
-          where: { shortcode_guid: guid },
+          where: { shortcode_guid: String(guid) },
         });
 
         return res.status(200).json(deletedShortcat);

@@ -5,8 +5,18 @@ import { Shortcat } from "@prisma/client";
 import { fetcher } from "@/utilities/fetcher";
 import { Button, Card, Checkbox, Label, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
+import Joi from 'joi'
+
+const schema = Joi.object({
+  id: Joi.number(),
+  shortcode_guid: Joi.string(),
+  redirect_url: Joi.string().uri().required(),
+  active: Joi.boolean().required()
+});
+
 
 const GuidPage = () => {
+  const [errorMessages, setErrorMessages] = useState<string[]>()
   const router = useRouter()
   const { guid } = router.query
 
@@ -28,35 +38,40 @@ const GuidPage = () => {
 
   useEffect(() => { console.log(formData) }, [formData])
 
-  if (error) return <div>Error fetching data</div>;
-  if (!data) return <div>Loading...</div>;
+  if (!data || error) return <>Loading...</>;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, checked, type } = event.target;
-
     setFormData((prevState) => ({
       ...prevState,
       [name]: type === 'checkbox' ? checked : value,
     }));
   };
 
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
-      // TODO: magical validation
+      const validationResult = schema.validate(formData, { abortEarly: false });
+      if (validationResult.error) {
+        setErrorMessages(validationResult.error.details.map((error) => error.message));
+        return;
+      }
 
-      await fetch(apiUrl, {
+      const savedShortcat = await fetch(apiUrl, {
         method: "PATCH", headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData)
       });
-      router.replace('/')
+      if (savedShortcat)
+        router.replace('/')
     } catch (error) {
       console.log(error);
     }
   };
+
 
   const handleDelete = async () => {
     const confirmed = window.confirm('Are you sure you want to delete this data?');
@@ -105,6 +120,9 @@ const GuidPage = () => {
           required={true}
           onChange={handleChange}
         />
+        {errorMessages && errorMessages.map((error) => (
+          <div key={error} className="text-danger">{error}</div>
+        ))}
       </div>
       <div className="flex items-center gap-2">
         <Label
@@ -113,9 +131,8 @@ const GuidPage = () => {
         />
         <Checkbox id="active" name="active" onChange={handleChange} checked={formData.active} />
       </div>
-      <Button type="submit">
-        Add new Redirect Url
-      </Button>
+      <Button type="submit">Save Changes</Button>
+
       <Button type="button" size="xs" outline={true} color="failure" onClick={handleDelete}>
         Remove the URL
       </Button>

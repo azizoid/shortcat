@@ -1,8 +1,12 @@
 import { prismaHelper } from '@/utilities/prisma';
 import { Shortcat } from '@prisma/client';
-import type { NextApiRequest, NextApiResponse } from 'next'
-
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { v4 as uuidv4 } from 'uuid';
+import Joi from 'joi';
+
+const shortcatSchema = Joi.object({
+  redirect_url: Joi.string().uri().required(),
+});
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
@@ -14,17 +18,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(200).json(shortcat);
 
       case 'POST':
-        const { redirect_url } = req.body;
-        if (!redirect_url) {
-          throw new Error('Redirect Url is not provided.');
-        }
+        const { error, value } = shortcatSchema.validate(req.body);
 
-        // TODO: Make some elfic magical validation
+        if (error) {
+          return res.status(400).json({ message: error.message });
+        }
 
         const newShortcat = await prismaHelper<Shortcat>(async (prisma) => {
           const shortcatData = {
             shortcode_guid: uuidv4(),
-            redirect_url,
+            redirect_url: value.redirect_url,
             active: true,
           };
           return await prisma.shortcat.create({ data: shortcatData });
