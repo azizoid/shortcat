@@ -1,0 +1,202 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ShortcatsTable should render a table with the correct headings 1`] = `
+<div>
+  <div
+    class="relative overflow-x-auto shadow-md sm:rounded-lg"
+    data-testid="table-element"
+  >
+    <table
+      class="w-full text-left text-sm text-gray-500 dark:text-gray-400"
+    >
+      <thead
+        class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400"
+      >
+        <tr>
+          <th
+            class="px-6 py-3"
+          >
+            GUID
+          </th>
+          <th
+            class="px-6 py-3"
+          >
+            Redirect Url
+          </th>
+          <th
+            class="px-6 py-3"
+          >
+            Status
+          </th>
+          <th
+            class="px-6 py-3"
+          >
+            <span
+              class="sr-only"
+            >
+              View
+            </span>
+          </th>
+          <th
+            class="px-6 py-3"
+          >
+            <span
+              class="sr-only"
+            >
+              Edit
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        class="divide-y"
+      >
+        <tr
+          class="hover:bg-gray-50 dark:hover:bg-gray-600 bg-white dark:border-gray-700 dark:bg-gray-800"
+          data-testid="table-row-element"
+        >
+          <td
+            class="px-6 py-4 whitespace-nowrap font-medium text-center text-gray-900 dark:text-white"
+            colspan="5"
+          >
+            Your list is empty. Click the button on the top to add a Shortcat.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;
+
+exports[`ShortcatsTable should render a table with the provided data 1`] = `
+<div>
+  <div
+    class="relative overflow-x-auto shadow-md sm:rounded-lg"
+    data-testid="table-element"
+  >
+    <table
+      class="w-full text-left text-sm text-gray-500 dark:text-gray-400"
+    >
+      <thead
+        class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400"
+      >
+        <tr>
+          <th
+            class="px-6 py-3"
+          >
+            GUID
+          </th>
+          <th
+            class="px-6 py-3"
+          >
+            Redirect Url
+          </th>
+          <th
+            class="px-6 py-3"
+          >
+            Status
+          </th>
+          <th
+            class="px-6 py-3"
+          >
+            <span
+              class="sr-only"
+            >
+              View
+            </span>
+          </th>
+          <th
+            class="px-6 py-3"
+          >
+            <span
+              class="sr-only"
+            >
+              Edit
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        class="divide-y"
+      >
+        <tr
+          class="hover:bg-gray-50 dark:hover:bg-gray-600 bg-white dark:border-gray-700 dark:bg-gray-800"
+          data-testid="table-row-element"
+        >
+          <td
+            class="px-6 py-4 whitespace-nowrap font-medium text-gray-900 dark:text-white"
+          >
+            ABC123
+          </td>
+          <td
+            class="px-6 py-4"
+          >
+            https://mojkuran.com
+          </td>
+          <td
+            class="px-6 py-4"
+          >
+            Active
+          </td>
+          <td
+            class="px-6 py-4"
+          >
+            <a
+              href="/ABC123"
+            >
+              View
+            </a>
+          </td>
+          <td
+            class="px-6 py-4"
+          >
+            <a
+              href="/ABC123/edit"
+            >
+              Edit
+            </a>
+          </td>
+        </tr>
+        <tr
+          class="hover:bg-gray-50 dark:hover:bg-gray-600 bg-white dark:border-gray-700 dark:bg-gray-800"
+          data-testid="table-row-element"
+        >
+          <td
+            class="px-6 py-4 whitespace-nowrap font-medium text-gray-900 dark:text-white"
+          >
+            DEF456
+          </td>
+          <td
+            class="px-6 py-4"
+          >
+            https://quran.az
+          </td>
+          <td
+            class="px-6 py-4"
+          >
+            Inactive
+          </td>
+          <td
+            class="px-6 py-4"
+          >
+            <a
+              href="/DEF456"
+            >
+              View
+            </a>
+          </td>
+          <td
+            class="px-6 py-4"
+          >
+            <a
+              href="/DEF456/edit"
+            >
+              Edit
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;
