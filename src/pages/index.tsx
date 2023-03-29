@@ -1,7 +1,7 @@
 
 import Head from 'next/head'
 import useSWR from 'swr'
-import { Table } from 'flowbite-react'
+import { Button, Checkbox, Label, Table, TextInput } from 'flowbite-react'
 import { fetcher } from '@/utilities/fetcher';
 import { Shortcat } from '@prisma/client';
 import Link from 'next/link';
@@ -41,6 +41,12 @@ const Home = () => {
             </Table.HeadCell>
           </Table.Head>
           <Table.Body className="divide-y">
+            {data?.length === 0 && <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key="not-found">
+              <Table.Cell className="whitespace-nowrap font-medium text-center text-gray-900 dark:text-white" colSpan={5}>
+                Your list is empty Click
+              </Table.Cell>
+            </Table.Row>}
+
             {data?.map(shortcat =>
               <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={shortcat.id}>
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
