@@ -11,7 +11,7 @@ const GuidPage = () => {
 
   const { data, error } = useSWR<Shortcat>(guid ? `/api/v1/codes/${guid}` : null, fetcher)
 
-  if (error && !data) {
+  if (error || !data) {
     return <div>Loading...</div>;
   }
 

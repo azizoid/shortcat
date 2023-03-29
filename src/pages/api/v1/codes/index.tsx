@@ -1,7 +1,8 @@
 import { prismaHelper } from '@/utilities/prisma';
 import { Shortcat } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { v4 as uuidv4 } from 'uuid';
+import short from 'short-uuid';
+
 import Joi from 'joi';
 
 const shortcatSchema = Joi.object({
@@ -26,7 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         const newShortcat = await prismaHelper<Shortcat>(async (prisma) => {
           const shortcatData = {
-            shortcode_guid: uuidv4(),
+            shortcode_guid: short.generate(),
             redirect_url: value.redirect_url,
             active: true,
           };
