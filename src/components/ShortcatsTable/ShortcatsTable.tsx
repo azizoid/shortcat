@@ -1,6 +1,7 @@
 import { Shortcat } from "@prisma/client";
 import { Table } from "flowbite-react";
 import Link from "next/link";
+import { NoShortcat } from "./NoShortcat";
 
 type ShortcatsTableProps = {
   data: Shortcat[]
@@ -28,11 +29,7 @@ export const ShortcatsTable = ({ data }: ShortcatsTableProps) => <Table hoverabl
     </Table.HeadCell>
   </Table.Head>
   <Table.Body className="divide-y">
-    {data?.length === 0 && <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key="not-found">
-      <Table.Cell className="whitespace-nowrap font-medium text-center text-gray-900 dark:text-white" colSpan={5}>
-        Your list is empty Click
-      </Table.Cell>
-    </Table.Row>}
+    {data?.length === 0 && <NoShortcat />}
 
     {data?.map(shortcat =>
       <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={shortcat.id}>
