@@ -27,6 +27,10 @@ export const RedirectWithCountdown = ({ redirectUrl }: RedirectWithCountdownProp
     }
   }, [countdown, redirectUrl, router]);
 
+  if (countdown === 0) {
+    return null;
+  }
+
   return (
     <div className="whitespace-nowrap font-medium text-center text-gray-900 dark:text-white">
       <p>You will be redirected to {redirectUrl} in {countdown} seconds.</p>

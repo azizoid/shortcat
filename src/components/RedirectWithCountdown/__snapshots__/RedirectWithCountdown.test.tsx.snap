@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RedirectWithCountdown should render a countdown and redirect after 5 seconds 1`] = `
+<div>
+  <div
+    class="whitespace-nowrap font-medium text-center text-gray-900 dark:text-white"
+  >
+    <p>
+      You will be redirected to 
+      https://nam.az
+       in 
+      5
+       seconds.
+    </p>
+    <button>
+      Click here if you are not automatically redirected.
+    </button>
+  </div>
+</div>
+`;
