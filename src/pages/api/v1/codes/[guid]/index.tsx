@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
 import Joi from 'joi';
-import { activeValidation, redirectUrlValidation, shortcodeGuidValidation } from '@/utilities/validationRules';
+import { activeValidation, redirectUrlValidation, shortcodeGuidValidation } from '@/utilities/validationRules/validationRules';
 
 const prisma = new PrismaClient();
 

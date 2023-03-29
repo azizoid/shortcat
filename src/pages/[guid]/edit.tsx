@@ -6,7 +6,7 @@ import { fetcher } from "@/utilities/fetcher";
 import { Button, Card, Checkbox, Label, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import Joi from 'joi'
-import { activeValidation, redirectUrlValidation, shortcodeGuidValidation } from "@/utilities/validationRules";
+import { activeValidation, redirectUrlValidation, shortcodeGuidValidation } from "@/utilities/validationRules/validationRules";
 
 const schema = Joi.object({
   id: Joi.number(),

@@ -4,7 +4,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import short from 'short-uuid';
 
 import Joi from 'joi';
-import { redirectUrlValidation } from '@/utilities/validationRules';
+import { redirectUrlValidation } from '@/utilities/validationRules/validationRules';
 
 const shortcatSchema = Joi.object({
   redirect_url: redirectUrlValidation

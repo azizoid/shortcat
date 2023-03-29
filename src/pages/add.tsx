@@ -4,7 +4,7 @@ import { Shortcat } from "@prisma/client";
 import { Button, Card, Label, TextInput } from "flowbite-react";
 import { useState } from "react";
 import Joi from 'joi'
-import { redirectUrlValidation } from "@/utilities/validationRules";
+import { redirectUrlValidation } from "@/utilities/validationRules/validationRules";
 
 const schema = Joi.object({
   redirect_url: redirectUrlValidation

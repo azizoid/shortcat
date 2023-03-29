@@ -14,4 +14,4 @@ export const redirectUrlValidation = Joi.string().custom((value) => {
 
 export const activeValidation = Joi.boolean().required()
 
-export const shortcodeGuidValidation = Joi.string()
+export const shortcodeGuidValidation = Joi.string().required()
