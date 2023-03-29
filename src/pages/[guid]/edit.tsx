@@ -6,22 +6,13 @@ import { fetcher } from "@/utilities/fetcher";
 import { Button, Card, Checkbox, Label, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import Joi from 'joi'
+import { activeValidation, redirectUrlValidation, shortcodeGuidValidation } from "@/utilities/validationRules";
 
 const schema = Joi.object({
   id: Joi.number(),
-  shortcode_guid: Joi.string(),
-  redirect_url: Joi.string().custom((value) => {
-    const pattern = /^http(s)?:\/\//i;
-    if (!pattern.test(value)) {
-      return "https://" + value;
-    }
-    return value;
-  }).uri().required().messages({
-    'string.base': 'Redirect URL must be a string',
-    'string.uri': 'Redirect URL must be a valid URL. Try adding `https://`',
-    'any.required': 'Redirect URL is required',
-  }),
-  active: Joi.boolean().required()
+  shortcode_guid: shortcodeGuidValidation,
+  redirect_url: redirectUrlValidation,
+  active: activeValidation
 });
 
 

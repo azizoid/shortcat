@@ -4,19 +4,10 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import short from 'short-uuid';
 
 import Joi from 'joi';
+import { redirectUrlValidation } from '@/utilities/validationRules';
 
 const shortcatSchema = Joi.object({
-  redirect_url: Joi.string().custom((value) => {
-    const pattern = /^http(s)?:\/\//i;
-    if (!pattern.test(value)) {
-      return "https://" + value;
-    }
-    return value;
-  }).uri().required().messages({
-    'string.base': 'Redirect URL must be a string',
-    'string.uri': 'Redirect URL must be a valid URL. Try adding `https://`',
-    'any.required': 'Redirect URL is required',
-  }),
+  redirect_url: redirectUrlValidation
 });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
