@@ -3,6 +3,7 @@ import useSWR from 'swr'
 
 import { Shortcat } from "@prisma/client";
 import { fetcher } from "@/utilities/fetcher";
+import { RedirectWithCountdown } from "@/components/RedirectWithCountdown/RedirectWithCountdown";
 
 const GuidPage = () => {
   const router = useRouter()
@@ -10,10 +11,15 @@ const GuidPage = () => {
 
   const { data, error } = useSWR<Shortcat>(guid ? `/api/v1/codes/${guid}` : null, fetcher)
 
-  if (error) return <div>Error fetching data</div>;
-  if (!data) return <div>Loading...</div>;
+  if (error && !data) {
+    return <div>Loading...</div>;
+  }
 
-  return router.push(data.redirect_url)
+  if (data.active) {
+    return <RedirectWithCountdown redirectUrl={data.redirect_url} />
+  }
+
+  return <p className="whitespace-nowrap font-medium text-center text-gray-900 dark:text-white">You could be redirected to <u>{data.redirect_url}</u> but this link is disabled.</p>
 }
 
 export default GuidPage
