@@ -10,7 +10,7 @@ export const NavbarRow = () => <Navbar
     </span>
   </Navbar.Brand>
   <div className="flex md:order-2">
-    <Button >
+    <Button href='/add'>
       Add a Shortcat
     </Button>
   </div>
