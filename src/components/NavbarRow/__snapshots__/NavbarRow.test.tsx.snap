@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavbarRow should render the navbar with the correct text 1`] = `
+<div>
+  <nav
+    class="border-gray-200 bg-white px-2 py-2.5 dark:border-gray-700 dark:bg-gray-800 sm:px-4 rounded"
+  >
+    <div
+      class="mx-auto flex flex-wrap items-center justify-between"
+    >
+      <a
+        class="flex items-center"
+        href="/"
+      >
+        <span
+          class="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
+        >
+          Shortcat
+        </span>
+      </a>
+      <div
+        class="flex md:order-2"
+      >
+        <a
+          class="text-white bg-blue-700 border border-transparent hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 disabled:hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:disabled:hover:bg-blue-600 focus:!ring-2 group flex h-min items-center justify-center p-0.5 text-center font-medium focus:z-10 rounded-lg"
+          href="/add"
+        >
+          <span
+            class="flex items-center rounded-md text-sm px-4 py-2"
+          >
+            Add a Shortcat
+          </span>
+        </a>
+      </div>
+    </div>
+  </nav>
+</div>
+`;
