@@ -9,7 +9,17 @@ const guidSchema = Joi.string().required();
 const shortcatSchema = Joi.object({
   id: Joi.number(),
   shortcode_guid: Joi.string(),
-  redirect_url: Joi.string().uri().required(),
+  redirect_url: Joi.string().custom((value) => {
+    const pattern = /^http(s)?:\/\//i;
+    if (!pattern.test(value)) {
+      return "https://" + value;
+    }
+    return value;
+  }).uri().required().messages({
+    'string.base': 'Redirect URL must be a string',
+    'string.uri': 'Redirect URL must be a valid URL. Try adding `https://`',
+    'any.required': 'Redirect URL is required',
+  }),
   active: Joi.boolean().required()
 });
 

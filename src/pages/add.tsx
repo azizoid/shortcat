@@ -4,9 +4,16 @@ import { Shortcat } from "@prisma/client";
 import { Button, Card, Label, TextInput } from "flowbite-react";
 import { useState } from "react";
 import Joi from 'joi'
+import { addScheme } from "@/utilities/addScheme";
 
 const schema = Joi.object({
-  redirect_url: Joi.string().uri().required().messages({
+  redirect_url: Joi.string().uri().custom((value) => {
+    const pattern = /^http(s)?:\/\//i;
+    if (!pattern.test(value)) {
+      return "https://" + value;
+    }
+    return value;
+  }).required().messages({
     'string.base': 'Redirect URL must be a string',
     'string.uri': 'Redirect URL must be a valid URL. Try adding `https://`',
     'any.required': 'Redirect URL is required',
@@ -37,6 +44,10 @@ const GuidPage = () => {
     event.preventDefault();
 
     try {
+      if (formData.redirect_url) {
+        formData.redirect_url = addScheme(formData.redirect_url)
+      }
+
       const validationResult = schema.validate(formData, { abortEarly: false });
       if (validationResult.error) {
         setErrorMessages(validationResult.error.details.map((error) => error.message));
