@@ -1,10 +1,9 @@
 
 import Head from 'next/head'
 import useSWR from 'swr'
-import { Button, Checkbox, Label, Table, TextInput } from 'flowbite-react'
 import { fetcher } from '@/utilities/fetcher';
 import { Shortcat } from '@prisma/client';
-import Link from 'next/link';
+import { ShortcatsTable } from '@/components/ShortcatsTable/ShortcatsTable';
 
 const Home = () => {
   const { data, error } = useSWR<Shortcat[]>("/api/v1/codes", fetcher)
@@ -18,59 +17,7 @@ const Home = () => {
         <title>Welcome Page</title>
       </Head>
       <main>
-        <Table hoverable={true}>
-          <Table.Head>
-            <Table.HeadCell>
-              GUID
-            </Table.HeadCell>
-            <Table.HeadCell>
-              Redirect Url
-            </Table.HeadCell>
-            <Table.HeadCell>
-              Status
-            </Table.HeadCell>
-            <Table.HeadCell>
-              <span className="sr-only">
-                View
-              </span>
-            </Table.HeadCell>
-            <Table.HeadCell>
-              <span className="sr-only">
-                Edit
-              </span>
-            </Table.HeadCell>
-          </Table.Head>
-          <Table.Body className="divide-y">
-            {data?.length === 0 && <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key="not-found">
-              <Table.Cell className="whitespace-nowrap font-medium text-center text-gray-900 dark:text-white" colSpan={5}>
-                Your list is empty Click
-              </Table.Cell>
-            </Table.Row>}
-
-            {data?.map(shortcat =>
-              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={shortcat.id}>
-                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                  {shortcat.shortcode_guid}
-                </Table.Cell>
-                <Table.Cell>
-                  {shortcat.redirect_url}
-                </Table.Cell>
-                <Table.Cell>
-                  {shortcat.active ? 'Active' : 'Inactive'}
-                </Table.Cell>
-                <Table.Cell>
-                  <Link href={`/${shortcat.shortcode_guid}`} >
-                    View
-                  </Link>
-                </Table.Cell>
-                <Table.Cell>
-                  <Link href={`/${shortcat.shortcode_guid}/edit`} >
-                    Edit
-                  </Link>
-                </Table.Cell>
-              </Table.Row>)}
-          </Table.Body>
-        </Table>
+        <ShortcatsTable data={data} />
       </main>
     </>
   )
