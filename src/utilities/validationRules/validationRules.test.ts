@@ -30,15 +30,14 @@ describe('Validation', () => {
     });
 
     test('returns an error for a non-boolean value', () => {
-      const { error, value } = activeValidation.validate('someNonBooleanValue');
-
-      console.log({ error, value })
+      const { error } = activeValidation.validate('someNonBooleanValue');
       expect(error).toBeDefined();
       expect(error?.message).toContain('must be a boolean');
     });
 
     test('returns an error for a missing value', () => {
       const { error } = activeValidation.validate(undefined);
+
       expect(error).toBeDefined();
       expect(error?.message).toContain('is required');
     });
@@ -55,7 +54,7 @@ describe('Validation', () => {
     test('adds "https://" to the beginning of the URL if missing', () => {
       const invalidUrl = 'https://nam.az';
       const { error, value } = redirectUrlValidation.validate(invalidUrl);
-      console.log({ error, value })
+
       expect(error).toBeUndefined();
       expect(value).toBe('https://nam.az');
     });

@@ -69,7 +69,8 @@ const GuidPage = () => {
       if (savedShortcat)
         router.replace('/')
     } catch (error) {
-      console.log(error);
+      // TODO: display errors in some toaster component 
+      console.error(error);
     }
   };
 
@@ -89,7 +90,8 @@ const GuidPage = () => {
 
         router.replace('/')
       } catch (error) {
-        console.log(error);
+        // TODO: display errors in some toaster component 
+        console.error(error);
       }
     }
   };
