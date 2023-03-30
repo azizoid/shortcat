@@ -8,8 +8,17 @@ generator client {
 }
 
 model Shortcat {
-  id    Int     @id @default(autoincrement())
-  shortcode_guid  String  @unique
-  redirect_url  String
-  active  Boolean @default(false)
+  id             Int     @id @default(autoincrement())
+  shortcode_guid String  @unique
+  redirect_url   String
+  active         Boolean @default(false)
+}
+
+model Report {
+  id             Int      @id @default(autoincrement())
+  shortcode_guid String
+  visited_at     DateTime @default(now())
+  ip_address     String?
+
+  @@index([shortcode_guid])
 }
