@@ -16,7 +16,7 @@ const GuidPage = () => {
   }
 
   if (data.active) {
-    return <RedirectWithCountdown redirectUrl={data.redirect_url} />
+    return <RedirectWithCountdown redirectUrl={data.redirect_url} guid={data.shortcode_guid} />
   }
 
   return <p className="whitespace-nowrap font-medium text-center text-gray-900 dark:text-white">You could be redirected to <u>{data.redirect_url}</u> but this link is disabled.</p>
