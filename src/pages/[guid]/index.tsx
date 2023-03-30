@@ -10,13 +10,14 @@ const GuidPage = () => {
   const { guid } = router.query
 
   const { data, error } = useSWR<Shortcat>(guid ? `/api/v1/codes/${guid}` : null, fetcher)
+  const { data: reportData } = useSWR<{ visit_count: number }>(guid ? `/api/v1/codes/${guid}/report` : null, fetcher)
 
   if (error || !data) {
     return <div>Loading...</div>;
   }
 
   if (data.active) {
-    return <RedirectWithCountdown redirectUrl={data.redirect_url} guid={data.shortcode_guid} />
+    return <RedirectWithCountdown redirectUrl={data.redirect_url} guid={data.shortcode_guid} visitCount={reportData?.visit_count} />
   }
 
   return <p className="whitespace-nowrap font-medium text-center text-gray-900 dark:text-white">You could be redirected to <u>{data.redirect_url}</u> but this link is disabled.</p>

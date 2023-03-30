@@ -1,18 +1,15 @@
-import { fetcher } from '@/utilities/fetcher';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import useSWR from 'swr'
 
 type RedirectWithCountdownProps = {
   redirectUrl: string
   guid: string
+  visitCount?: number
 }
 
-export const RedirectWithCountdown = ({ redirectUrl, guid }: RedirectWithCountdownProps) => {
+export const RedirectWithCountdown = ({ redirectUrl, guid, visitCount = 0 }: RedirectWithCountdownProps) => {
   const router = useRouter();
   const [countdown, setCountdown] = useState(5);
-
-  const { data: reportData } = useSWR<{ visit_count: number }>(guid ? `/api/v1/codes/${guid}/report` : null, fetcher)
 
   useEffect(() => {
     const countdownInterval = setInterval(() => {
@@ -49,9 +46,9 @@ export const RedirectWithCountdown = ({ redirectUrl, guid }: RedirectWithCountdo
 
   return (
     <div className="whitespace-nowrap font-medium text-center text-gray-900 dark:text-white">
-      <p>You will be redirected to {redirectUrl} in {countdown} seconds.</p>
+      <p>{`You will be redirected to ${redirectUrl} in ${countdown} seconds.`}</p>
 
-      <p>This URL was visiter {reportData?.visit_count ?? 0} times</p>
+      <p>{`This URL was visiter ${visitCount} times`}</p>
 
       <button onClick={() => router.push(redirectUrl)}>Click here if you are not automatically redirected.</button>
     </div>
