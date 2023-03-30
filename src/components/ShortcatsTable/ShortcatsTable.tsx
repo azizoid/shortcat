@@ -32,7 +32,7 @@ export const ShortcatsTable = ({ data }: ShortcatsTableProps) => <Table hoverabl
     {data?.length === 0 && <NoShortcat />}
 
     {data?.map(shortcat =>
-      <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={shortcat.id}>
+      <Table.Row className={`dark:border-gray-700 dark:bg-gray-800 ${shortcat.active ? 'bg-white' : 'bg-gray-50'}`} key={shortcat.id} >
         <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
           {shortcat.shortcode_guid}
         </Table.Cell>
@@ -54,4 +54,4 @@ export const ShortcatsTable = ({ data }: ShortcatsTableProps) => <Table hoverabl
         </Table.Cell>
       </Table.Row>)}
   </Table.Body>
-</Table>
+</Table >
