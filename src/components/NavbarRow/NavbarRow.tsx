@@ -11,6 +11,9 @@ export const NavbarRow = () => <Navbar
     </span>
     <FaCat />
   </Navbar.Brand>
+
+  {/* Navigation links such as about and so on */}
+
   <div className="flex md:order-2">
     <Button href='/add'>
       Add a Shortcat

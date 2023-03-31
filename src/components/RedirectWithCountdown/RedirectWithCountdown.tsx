@@ -50,6 +50,8 @@ export const RedirectWithCountdown = ({ redirectUrl, guid, visitCount = 0 }: Red
 
       <p>{`This URL was visiter ${visitCount} times`}</p>
 
+      {/* TODO: I want to sell some ads here */}
+
       <button onClick={() => router.push(redirectUrl)}>Click here if you are not automatically redirected.</button>
     </div>
   );
