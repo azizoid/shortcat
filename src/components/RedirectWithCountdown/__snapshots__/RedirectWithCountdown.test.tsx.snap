@@ -6,11 +6,10 @@ exports[`RedirectWithCountdown should render a countdown and redirect after 5 se
     class="whitespace-nowrap font-medium text-center text-gray-900 dark:text-white"
   >
     <p>
-      You will be redirected to 
-      https://nam.az
-       in 
-      5
-       seconds.
+      You will be redirected to https://nam.az in 5 seconds.
+    </p>
+    <p>
+      This URL was visiter 0 times
     </p>
     <button>
       Click here if you are not automatically redirected.

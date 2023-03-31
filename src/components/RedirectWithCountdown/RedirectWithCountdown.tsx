@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
-type RedirectWithCountdownProps = {
+export type RedirectWithCountdownProps = {
   redirectUrl: string
   guid: string
   visitCount?: number

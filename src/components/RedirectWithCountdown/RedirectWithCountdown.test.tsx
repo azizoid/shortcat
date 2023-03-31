@@ -1,16 +1,22 @@
 import { RouterContext } from 'next/dist/shared/lib/router-context';
 import { render, act } from '@testing-library/react';
-import { RedirectWithCountdown } from './RedirectWithCountdown';
+import { RedirectWithCountdown, RedirectWithCountdownProps } from './RedirectWithCountdown';
 
 const mockRouter = {
   replace: jest.fn(),
   push: jest.fn(),
 };
 
-const renderRedirectWithCountdown = (redirectUrl: string) => {
+// const mockFetch = jest.fn().mockResolvedValue({});
+// jest.spyOn(window, 'fetch').mockImplementation(() => mockFetch());
+
+const guid = "8210ac5810bb"
+const redirectUrl = 'https://nam.az';
+
+const renderRedirectWithCountdown = (props: RedirectWithCountdownProps) => {
   return render(
     <RouterContext.Provider value={{ ...mockRouter }}>
-      <RedirectWithCountdown redirectUrl={redirectUrl} />
+      <RedirectWithCountdown {...props} />
     </RouterContext.Provider>
   );
 };
@@ -18,22 +24,26 @@ const renderRedirectWithCountdown = (redirectUrl: string) => {
 describe('RedirectWithCountdown', () => {
   beforeEach(() => {
     jest.useFakeTimers();
+    global.fetch = jest.fn().mockResolvedValue({
+      json: () => Promise.resolve([{ id: 1, name: 'John' }, { id: 2, name: 'Jane' }]),
+    }) as jest.Mock<Promise<Response>>;
   });
 
   afterEach(() => {
     jest.clearAllMocks();
     jest.useRealTimers();
+
+    global.fetch.mockClear();
+    delete global.fetch;
   });
 
   it('should render a countdown and redirect after 5 seconds', () => {
-    const redirectUrl = 'https://nam.az';
-    const { container } = renderRedirectWithCountdown(redirectUrl);
+    const { container } = renderRedirectWithCountdown({ redirectUrl, guid });
     expect(container).toMatchSnapshot()
   });
 
   it('should redirect immediately if countdown is set to 0', () => {
-    const redirectUrl = 'https://nam.az';
-    const { queryByText } = renderRedirectWithCountdown(redirectUrl);
+    const { queryByText } = renderRedirectWithCountdown({ redirectUrl, guid });
     act(() => {
       jest.advanceTimersByTime(5000);
     });
@@ -44,8 +54,7 @@ describe('RedirectWithCountdown', () => {
   });
 
   it('should redirect when the button is clicked', () => {
-    const redirectUrl = 'https://nam.az';
-    const { getByRole } = renderRedirectWithCountdown(redirectUrl);
+    const { getByRole } = renderRedirectWithCountdown({ redirectUrl, guid });
 
     const button = getByRole('button');
     expect(button).toBeInTheDocument();
