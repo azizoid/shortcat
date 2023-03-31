@@ -3,9 +3,7 @@ import useSWR from 'swr'
 
 import { Shortcat } from "@prisma/client";
 import { fetcher } from "@/utilities/fetcher";
-import { RedirectWithCountdown } from "@/components/RedirectWithCountdown/RedirectWithCountdown";
-import { ErrorMessage } from "@/components/ErrorMessage/ErrorMessage";
-import { Loading } from "@/components/Loading/Loading";
+import { ErrorMessage, Loading, RedirectWithCountdown } from "@/components";
 
 const GuidPage = () => {
   const router = useRouter()
