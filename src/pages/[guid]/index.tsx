@@ -4,6 +4,8 @@ import useSWR from 'swr'
 import { Shortcat } from "@prisma/client";
 import { fetcher } from "@/utilities/fetcher";
 import { RedirectWithCountdown } from "@/components/RedirectWithCountdown/RedirectWithCountdown";
+import { ErrorMessage } from "@/components/ErrorMessage/ErrorMessage";
+import { Loading } from "@/components/Loading/Loading";
 
 const GuidPage = () => {
   const router = useRouter()
@@ -12,9 +14,8 @@ const GuidPage = () => {
   const { data, error } = useSWR<Shortcat>(guid ? `/api/v1/codes/${guid}` : null, fetcher)
   const { data: reportData } = useSWR<{ visit_count: number }>(guid ? `/api/v1/codes/${guid}/report` : null, fetcher)
 
-  if (error || !data) {
-    return <div>Loading...</div>;
-  }
+  if (error) return <ErrorMessage />
+  if (!data) return <Loading />
 
   if (data.active) {
     return <RedirectWithCountdown redirectUrl={data.redirect_url} guid={data.shortcode_guid} visitCount={reportData?.visit_count} />

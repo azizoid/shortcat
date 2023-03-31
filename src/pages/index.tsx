@@ -4,12 +4,14 @@ import useSWR from 'swr'
 import { fetcher } from '@/utilities/fetcher';
 import { Shortcat } from '@prisma/client';
 import { ShortcatsTable } from '@/components/ShortcatsTable/ShortcatsTable';
+import { Loading } from '@/components/Loading/Loading';
+import { ErrorMessage } from '@/components/ErrorMessage/ErrorMessage';
 
 const Home = () => {
   const { data, error } = useSWR<Shortcat[]>("/api/v1/codes", fetcher)
 
-  if (error) return <div>Error fetching data</div>;
-  if (!data) return <div>Loading...</div>;
+  if (error) return <ErrorMessage />
+  if (!data) return <Loading />
 
   return (
     <>

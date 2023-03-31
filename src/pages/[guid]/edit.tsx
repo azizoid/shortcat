@@ -7,6 +7,8 @@ import { Button, Card, Checkbox, Label, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import Joi from 'joi'
 import { activeValidation, redirectUrlValidation, shortcodeGuidValidation } from "@/utilities/validationRules/validationRules";
+import { Loading } from "@/components/Loading/Loading";
+import { ErrorMessage } from "@/components/ErrorMessage/ErrorMessage";
 
 const schema = Joi.object({
   id: Joi.number(),
@@ -39,7 +41,8 @@ const GuidPage = () => {
 
   useEffect(() => { console.log(formData) }, [formData])
 
-  if (!data || error) return <>Loading...</>;
+  if (error) return <ErrorMessage />
+  if (!data) return <Loading />
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, checked, type } = event.target;
