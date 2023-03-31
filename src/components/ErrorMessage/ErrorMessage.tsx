@@ -1,0 +1,1 @@
+export const ErrorMessage = () => <div className="flex items-center justify-center w-full p-10 text-red-600">Error fetching data</div>
